@@ -2,7 +2,6 @@ import PageLayout from "../components/PageLayout";
 import HeroSection from "../components/HeroSection";
 import ProjectCard from "../components/ProjectCard";
 import ToolCard from "../components/ToolCard";
-import FeedbackSection from "../components/FeedbackSection";
 import { projects as projectsData } from "../data/projects";
 import WorkHistorySection from "../components/WorkHistorySection";
 import { useScrollAnimation, useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";

@@ -93,25 +93,61 @@ const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message) return;
-    const subject = encodeURIComponent(`New message from ${name}`);
-    const body = encodeURIComponent(message + `\n\nFrom: ${name} <${email}>`);
-    window.location.href = `mailto:parmida@example.com?subject=${subject}&body=${body}`;
+
+    setIsSubmitting(true);
+    setStatusMessage("");
+    setIsError(false);
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 12000);
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ name, email, message }),
+        signal: controller.signal,
+      });
+      window.clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      setStatusMessage("Message sent successfully. I will get back to you soon.");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch {
+      setIsError(true);
+      setStatusMessage(
+        "Could not send right now. Please try again in a moment."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section className="space-y-8 ">
       <div className="space-y-4">
-        <h2 className="text-4xl lg:text-5xl font-bold">
+        <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
           Let's Create <br />
           Something <span>Amazing</span>
         </h2>
       </div>
 
-      <Card className="bg-white/5 border-none p-8 rounded-3xl">
+      <Card className="rounded-3xl border-none bg-white/5 p-5 sm:p-8">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <Label htmlFor="name" className="text-foreground">
@@ -154,9 +190,24 @@ const ContactForm = () => {
             />
           </div>
 
-          <Button variant="portfolio" size="portfolio" className="w-full" type="submit">
-            Send <ArrowUpRight className="ml-2 h-4 w-4" />
+          <Button
+            variant="portfolio"
+            size="portfolio"
+            className="w-full"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Sending..." : "Send"} <ArrowUpRight className="ml-2 h-4 w-4" />
           </Button>
+          {statusMessage && (
+            <p
+              className={`text-sm ${
+                isError ? "text-red-300" : "text-emerald-300"
+              }`}
+            >
+              {statusMessage}
+            </p>
+          )}
         </form>
       </Card>
 

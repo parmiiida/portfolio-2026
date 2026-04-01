@@ -31,9 +31,9 @@ const getProjectLinks = (slug: string): { liveUrl?: string; githubUrl?: string }
       liveUrl: "https://awwards-clone-two.vercel.app/",
       githubUrl: "https://github.com/parmiiida/awwards-clone"
     },
-    "your-teacher": {
-      liveUrl: "https://your-teacher-5v6ud5vyh-parmiiidas-projects.vercel.app/",
-      githubUrl: "https://github.com/parmiiida/your-teacher"
+    "coin-pulse": {
+      liveUrl: "https://dashboard-coin-one.vercel.app/",
+      githubUrl: "https://github.com/parmiiida/dashboard-coin"
     }
   };
   return linksMap[slug] || {};
@@ -77,12 +77,24 @@ const getFeaturesForProject = (slug: string): string[] => {
   return featuresMap[slug] || ["Modern UI/UX", "Responsive design", "Performance optimized"];
 };
 
+const defaultFeatures = ["Modern UI/UX", "Responsive design", "Performance optimized"];
+
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
 
   // Find the project by slug
   const project = projects.find(p => p.slug === slug);
   const projectLinks = getProjectLinks(slug || '');
+  const projectCategory = project?.category || "Web Development";
+  const projectYear = project?.year || "2024";
+  const projectStatus = project?.status || "Completed";
+  const projectFeatures = project?.features?.length
+    ? project.features
+    : getFeaturesForProject(slug || "").length
+      ? getFeaturesForProject(slug || "")
+      : defaultFeatures;
+  const projectStatusClass =
+    projectStatus.toLowerCase() === "completed" ? "text-green-400" : "text-amber-400";
 
   // Animation refs
   const backButtonRef = useScrollAnimation<HTMLDivElement>({
@@ -157,7 +169,7 @@ const ProjectDetail = () => {
 
   return (
     <PageLayout activeSection="projects">
-      <div className="min-h-screen">
+      <div className="min-h-screen pt-2">
         {/* Back Button */}
         <div ref={backButtonRef} className="mb-8">
           <Link to="/">
@@ -170,10 +182,10 @@ const ProjectDetail = () => {
 
         {/* Project Header */}
         <div className="mb-12">
-          <h1 ref={titleRef} className="text-5xl lg:text-6xl font-bold mb-6">
+          <h1 ref={titleRef} className="mb-6 text-3xl font-bold sm:text-4xl lg:text-6xl">
             {project.title}
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl">
+          <p className="max-w-3xl text-base text-muted-foreground sm:text-lg lg:text-xl">
             {project.description}
           </p>
         </div>
@@ -190,18 +202,18 @@ const ProjectDetail = () => {
         </div>
 
         {/* Project Details */}
-        <div ref={contentRef} className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div ref={contentRef} className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             <div>
-              <h2 className="text-3xl font-bold mb-4">About This Project</h2>
+              <h2 className="mb-4 text-2xl font-bold sm:text-3xl">About This Project</h2>
               <p className="text-muted-foreground leading-relaxed">
                 {project.longDescription || project.description}
               </p>
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold mb-4">Technologies Used</h3>
+              <h3 className="mb-4 text-xl font-bold sm:text-2xl">Technologies Used</h3>
               <div className="flex flex-wrap gap-3">
                 {getTechnologiesForProject(project.slug).map((tech, index) => (
                   <span
@@ -215,9 +227,9 @@ const ProjectDetail = () => {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold mb-4">Key Features</h3>
+              <h3 className="mb-4 text-xl font-bold sm:text-2xl">Key Features</h3>
               <ul className="space-y-2">
-                {getFeaturesForProject(project.slug).map((feature, index) => (
+                {projectFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="text-[#7A43C1] mt-1">•</span>
                     <span className="text-muted-foreground">{feature}</span>
@@ -234,15 +246,15 @@ const ProjectDetail = () => {
               <div className="space-y-3">
                 <div>
                   <span className="text-muted-foreground">Category:</span>
-                  <p className="font-medium">Web Development</p>
+                  <p className="font-medium">{projectCategory}</p>
                 </div>
                 <div>
                   <span className="text-muted-foreground">Year:</span>
-                  <p className="font-medium">2024</p>
+                  <p className="font-medium">{projectYear}</p>
                 </div>
                 <div>
                   <span className="text-muted-foreground">Status:</span>
-                  <p className="font-medium text-green-400">Completed</p>
+                  <p className={`font-medium ${projectStatusClass}`}>{projectStatus}</p>
                 </div>
               </div>
             </div>
@@ -283,10 +295,10 @@ const ProjectDetail = () => {
         {/* Other Projects Section */}
         <div ref={otherProjectsRef} className="mt-20 pt-20 border-t border-white/10">
           <div className="mb-12">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
+            <h2 className="mb-4 text-3xl font-bold sm:text-4xl lg:text-5xl">
               Other <span className="text-[#7A43C1]">Projects</span>
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-base text-muted-foreground sm:text-lg lg:text-xl">
               Explore more of my work and discover other exciting projects.
             </p>
           </div>

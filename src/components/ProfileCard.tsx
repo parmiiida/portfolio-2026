@@ -5,23 +5,23 @@ import photo from "../assets/photooo.png";
 
 const ProfileCard = () => {
   return (
-    <Card className="bg-white/5 border-none p-8 rounded-3xl shadow-card">
-      <div className="flex flex-col items-center text-center space-y-8">
+    <Card className="rounded-3xl border-none bg-white/5 p-5 shadow-card sm:p-8">
+      <div className="flex flex-col items-center space-y-6 text-center sm:space-y-8">
         {/* Profile Photo */}
         <div className="relative">
           <img
             src={photo}
             alt="parmida shoeibzadeh - Frontend Developer"
-            className="w-60 h-60 opacity-65 rounded-3xl object-cover shadow-glow"
+            className="h-44 w-44 rounded-3xl object-cover opacity-65 shadow-glow sm:h-56 sm:w-56 lg:h-60 lg:w-60"
           />
         </div>
 
         {/* Name and Title */}
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold text-foreground text-white">
+          <h1 className="text-2xl font-bold text-foreground text-white sm:text-3xl">
             Parmida shoeibzadeh
           </h1>
-          <p className="text-muted-foreground text-white/80 text-lg">
+          <p className="text-base text-muted-foreground text-white/80 sm:text-lg">
           Frontend Developer
           </p>
           <p className="text-muted-foreground text-white/80">
@@ -63,6 +63,7 @@ const ProfileCard = () => {
 
         {/* Let's Talk Button */}
         <Button
+          onClick={() => window.location.href = "/contact"}
           variant="portfolio"
           size="portfolio"
           className="w-full bg-[#7A43C1]"

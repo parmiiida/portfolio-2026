@@ -85,7 +85,7 @@ const CollaborateCTA = () => {
   return (
     <Card
       ref={collabCardRef}
-      className="bg-white/5 border border-white/10 p-8 rounded-3xl text-white relative overflow-hidden transition-all duration-300"
+      className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 text-white transition-all duration-300 sm:p-8"
     >
       <div
         ref={flashRef}
@@ -94,14 +94,14 @@ const CollaborateCTA = () => {
       <a href="/contact">
         <button
           ref={circleButtonRef}
-          className="absolute top-6 right-6 w-12 h-12 bg-purple-600/50 rounded-full flex items-center justify-center text-white hover:bg-purple-600 transition-colors duration-300 z-10 cursor-pointer"
+          className="absolute right-4 top-4 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-purple-600/50 text-white transition-colors duration-300 hover:bg-purple-600 sm:right-6 sm:top-6 sm:h-12 sm:w-12"
         >
           <ArrowRight className="h-5 w-5" />
         </button>
       </a>
 
-      <div className="space-y-4 pr-20">
-        <h3 className="text-5xl font-bold">
+      <div className="space-y-4 pr-14 sm:pr-20">
+        <h3 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
           Let's <br />
           <span className="text-[#7A43C1]">collaborate</span>
         </h3>

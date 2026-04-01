@@ -19,7 +19,6 @@ const Navigation = ({ activeSection }: NavigationProps) => {
     { icon: Home, id: "home", label: "Home", url: "/" },
     { icon: FolderOpen, id: "projects", label: "Projects", url: "/#projects" },
     { icon: Briefcase, id: "tools", label: "Tools", url: "/#tools" },
-    { icon: PenTool, id: "about", label: "About", url: "/" },
     { icon: HelpCircle, id: "faq", label: "FAQ", url: "/#faq" },
     { icon: Mail, id: "contact", label: "Contact", url: "/contact" },
   ];
@@ -100,8 +99,11 @@ const Navigation = ({ activeSection }: NavigationProps) => {
   }, [activeSection]);
 
   return (
-    <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
-      <div ref={containerRef} className="flex gap-4 bg-white/5 rounded-2xl p-2 border border-white/10">
+    <div className="fixed left-1/2 top-3 z-50 w-[calc(100%-1rem)] -translate-x-1/2 sm:top-6 sm:w-auto">
+      <div
+        ref={containerRef}
+        className="flex justify-center gap-1 rounded-2xl border border-white/10 bg-white/5 p-1.5 sm:gap-3 sm:p-2"
+      >
         {navItems.map((item, i) => (
           <div className="relative group" key={item.id}>
             <a href={item.url || "#"}>
@@ -111,7 +113,7 @@ const Navigation = ({ activeSection }: NavigationProps) => {
               }}
               variant={activeSection === item.id ? "default" : "ghost"}
               size="icon"
-              className={`rounded-xl relative overflow-hidden w-12 h-12 cursor-pointer
+              className={`relative h-10 w-10 cursor-pointer overflow-hidden rounded-xl sm:h-12 sm:w-12
                 ${
                   activeSection === item.id
                     ? "bg-primary text-primary-foreground shadow-glow"
@@ -127,7 +129,7 @@ const Navigation = ({ activeSection }: NavigationProps) => {
               ref={(el) => {
                 if (el) tooltipsRef.current[i] = el;
               }}
-              className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white/5 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap"
+              className="absolute -bottom-10 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded-lg bg-white/5 px-3 py-2 text-xs text-white md:block"
             >
               {item.label}
             </span>

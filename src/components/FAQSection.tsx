@@ -37,7 +37,7 @@ const FAQSection = () => {
   return (
     <section className="space-y-8" id="faq">
       <div className="space-y-4">
-        <h2 className="text-4xl lg:text-5xl font-bold">
+        <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
           Frequently <br />
           Asked <span className="text-[#7A43C1]">Questions</span>
         </h2>
@@ -48,7 +48,7 @@ const FAQSection = () => {
           <AccordionItem
             key={index}
             value={`item-${index}`}
-            className="bg-white/5 transition-colors border-none rounded-2xl px-6"
+            className="rounded-2xl border-none bg-white/5 px-4 transition-colors sm:px-6"
           >
             <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline py-6">
               {faq.question}

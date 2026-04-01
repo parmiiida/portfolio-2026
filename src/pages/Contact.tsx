@@ -5,7 +5,6 @@ const Contact = () => {
   return (
     <PageLayout activeSection="contact">
       <section className="space-y-8">
-
         <ContactForm />
       </section>
     </PageLayout>

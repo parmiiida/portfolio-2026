@@ -64,7 +64,7 @@ const Index = () => {
 
       <section id="projects" className="space-y-8">
         <div className="space-y-4">
-          <h2 ref={projectsTitleRef} className="text-4xl lg:text-5xl font-bold">
+          <h2 ref={projectsTitleRef} className="text-3xl font-bold sm:text-4xl lg:text-5xl">
             Recent Projects <br />
             and <span className="text-[#7A43C1]">Achievements</span>
           </h2>
@@ -87,7 +87,7 @@ const Index = () => {
 
       <section id="tools" className="space-y-8">
         <div className="space-y-4">
-          <h2 ref={toolsTitleRef} className="text-4xl lg:text-5xl font-bold">
+          <h2 ref={toolsTitleRef} className="text-3xl font-bold sm:text-4xl lg:text-5xl">
             Top-Tier Tools for <br />
             Exceptional <span className="text-[#7A43C1]">Results</span>
           </h2>

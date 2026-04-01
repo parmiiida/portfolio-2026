@@ -6,7 +6,6 @@ import {
   Briefcase,
   HelpCircle,
   Mail,
-  PenTool,
 } from "lucide-react";
 import gsap from "gsap";
 
